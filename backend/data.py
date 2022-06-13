@@ -1,8 +1,9 @@
 import pandas as pd
 import numpy as np
-
+import streamlit as st
 from scipy.signal import butter, lfilter
 from scipy.signal import freqs
+import altair as alt
 
 def clean(df):
     """
@@ -42,3 +43,17 @@ order = 4 #order of filter
 #print sticker_data.ps1_dxdt2
 
 
+def summ():
+    source = pd.DataFrame(np.cumsum(np.random.randn(100, 3), 0).round(2),
+                        columns=['alcohol', 'beer', 'coke'], index=pd.RangeIndex(100, name='x'))
+    source = source.reset_index().melt('x', var_name='category', value_name='y')
+
+    line_chart = alt.Chart(source).mark_line(interpolate='basis').encode(
+        alt.X('x', title='Year'),
+        alt.Y('y', title='Amount in liters'),
+        color='category:N'
+    ).properties(
+        title='Sales of consumer goods'
+    )
+
+    st.altair_chart(line_chart)
