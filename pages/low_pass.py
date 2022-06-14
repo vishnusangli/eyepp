@@ -24,15 +24,23 @@ def col_vals(arr, name):
     s_rad = sampling_freq * 2 * np.pi
 
     lowpass_vals = data.butter_lowpass_filter(arr, t_rad, s_rad, order)
+
+    
     st.write(f"# Column: {name}")
     st.write("Values")
     st.line_chart(lowpass_vals)
     st.write("Derivatives")
     st.line_chart(savgol_filter(lowpass_vals, 5, 2, deriv =1))
 
+    return lowpass_vals, name
+
 if df_use is not None:
     for i in df_use.columns:
-        col_vals(df_use[i], i)
+        lowpass_info = []
+        pair = col_vals(df_use[i], i)
+        lowpass_info.append(pair)
+    st.session_state.lowpass_info = lowpass_info
+
 
 
 

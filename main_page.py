@@ -5,9 +5,6 @@ import pandas as pd
 import backend.data as data
 import altair as alt
 
-from scipy.signal import savgol_filter
-np.set_printoptions(precision=2)
-
 # %%
 
 st.set_page_config(layout="wide")
