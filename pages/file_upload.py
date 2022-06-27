@@ -16,7 +16,7 @@ if 'df_master' not in st.session_state:
 if 'file_info' not in st.session_state:
     st.session_state.file_info = None
 
-uploaded_file = st.file_uploader("Choose a CSV file", accept_multiple_files=False)
+uploaded_file = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
 if uploaded_file is not None and st.session_state.df_master is None:
     df = pd.read_csv(uploaded_file)
     info, df_clean = data.clean(df)

@@ -2,8 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import backend.data as data
-from scipy.signal import savgol_filter
-np.set_printoptions(precision=2)
+
 
 st.title("Apply Low Pass")
 st.sidebar.markdown("# Apply Low Pass")
@@ -30,7 +29,7 @@ def col_vals(arr, name):
     st.write("Values")
     st.line_chart(lowpass_vals)
     st.write("Derivatives")
-    st.line_chart(savgol_filter(lowpass_vals, 5, 2, deriv =1))
+    st.line_chart(data.deriv(lowpass_vals, order = 1))
 
     return lowpass_vals, name
 
