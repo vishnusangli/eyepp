@@ -1,0 +1,23 @@
+Record #:  8
+Notes :
+Sirisha - 39 - F, Normal,
+Eyeball movements (left, right, up, down)  ~ 3 mins
+Electrode placement: 1
+Ch1, Ch2- vertical channel, Ch3-Hrzontal (L- positive, R - negative)
+LPF: order= 4, Cut-off:15 Hz
+Only one common reference for Ch-A and Ch-B
+250 SPS
+
+
+6/20/20225:20:25 PM
+
+Scope Analysis
+	Mean (V)	Vrms	Vpp
+Channel 1	-13.54E-3	13.536936E-3	1.60E-3
+Channel 2	-16.46E-3	16.463751E-3	1.47E-3
+Channel 3	-3.44E-3	3.445789E-3	2.14E-3
+Channel 4	82.35E-3	110.877382E-3	241.08E-3
+Channel 5	-187.50E-3	187.500019E-3	301.77E-6
+Channel 6	12.28E-3	12.297157E-3	1.75E-3
+Channel 7	107.04E-3	107.490692E-3	29.86E-3
+Channel 8	176.49E-3	176.494595E-3	5.50E-3

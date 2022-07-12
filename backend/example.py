@@ -141,3 +141,7 @@ imgs = np.array(imgs)
 print(imgs.shape)
 # %%
 myplot.plot_blinks(imgs, name = current_filename, numplots = (4, 7))
+
+# %%
+good_blinks
+# %%

@@ -141,3 +141,107 @@ plt.legend(loc="upper right")
 #plt.savefig("figures/fig2.png")
 plt.show()
 # %%
+
+# %%
+blink_range = [0, 2000]
+new_data = eog_cleaned[blink_range[0]:blink_range[1]]
+
+plt.figure(figsize = (10, 8))
+plt.plot(new_data)
+plt.grid()
+
+for count, i in df_blinks.iterrows():
+    if i['Offsets'] <= blink_range[1] and i['Onsets'] >= blink_range[0]:
+        start = int(i['Onsets'])
+        end = int(i['Offsets'])
+        plt.scatter(start, new_data[start], color = 'red', alpha = 0.7)
+        plt.scatter(end, new_data[end], color = 'blue', alpha = 0.7)
+        plt.scatter(i['Peaks'], new_data[int(i['Peaks'])], color = 'green', alpha = 0.5)
+        plt.text(i['Peaks'] - 50, new_data[int(i['Peaks'])] + 0.00005, f"{round(new_data[int(i['Peaks'])], 6)}", fontsize = 10, color = 'red')
+        plt.text(i['Peaks'] - 50, new_data[int(i['Peaks'])] + 0.00007, f"{round(i['Width'], 2)}", fontsize = 10, color = 'green')
+        plt.text(i['Peaks'] - 50, new_data[int(i['Peaks'])] + 0.00003, f"{count}", fontsize = 10)
+plt.legend()
+# %%
+
+"""
+blink start, end
+
+Width at -
+    0.25, 0.5, 0.75
+max slope while closing, while opening
+
+slope at 3 points
+duration between blinks
+blink duration
+acceleration
+
+"""
+
+class blink_segmentation:
+    def __init__(self) -> None:
+        pass
+
+    def nkt_find_peaks(self) -> pd.DataFrame:
+        pass
+
+    
+# %%
+p = False
+width50, width_vals, b, c = signal.peak_widths(eog_cleaned, df_blinks["Peaks"], rel_height = 0.5)
+width75, width_vals, b, c = signal.peak_widths(eog_cleaned, df_blinks["Peaks"], rel_height = 0.25)
+width25, width_vals, b, c = signal.peak_widths(eog_cleaned, df_blinks["Peaks"], rel_height = 0.75)
+new_list = []
+for i, blink in df_blinks.iterrows():
+    try:
+        start = int(blink['Onsets'])
+        end = int(blink['Offsets'])
+    except Exception:
+        new_list.append([np.NaN, np.NaN, np.NaN])
+        continue
+    blink_range = eog_cleaned[start: end]
+
+    first_deriv = savgol_filter(blink_range, window_length= 3, polyorder= 2, deriv = 1)
+    sec_deriv = savgol_filter(blink_range, window_length= 3, polyorder= 2, deriv = 2)
+    max_sp = np.where(first_deriv ==np.max(first_deriv))[0]
+    min_sp = np.where(first_deriv ==np.min(first_deriv))[0]
+    if p:
+        f, ax = plt.subplots(3, 1, figsize = (4, 10))
+        ax[0].plot(blink_range)
+
+        ax[1].plot(first_deriv)
+        ax[1].scatter(min_sp, first_deriv[min_sp])
+        ax[1].scatter(max_sp, first_deriv[max_sp])
+
+
+        ax[2].plot(sec_deriv)
+    if i + 1< len(df_blinks):
+        b_inter = df_blinks["Onsets"][i + 1] - end
+    else: b_inter = np.NaN
+
+    new_list.append([max_sp[0], min_sp[0], b_inter])
+temp = pd.DataFrame(new_list, columns = ["min_deriv", "max_deriv", "for_inter"])
+temp["0.25width"] = width25
+temp["0.5width"] = width50
+temp["0.75width"] = width75
+# %%
+
+# %%
+df_blinks = pd.concat([df_blinks, temp])
+# %%
+
+from scipy.signal import chirp, find_peaks, peak_widths
+import matplotlib.pyplot as plt
+x = blink_range
+peaks, _ = find_peaks(x)
+results_half = peak_widths(x, peaks, rel_height=0.5)
+results_quarter = peak_widths(x, peaks, rel_height=0.25)
+
+# %%
+plt.plot(x)
+plt.plot(peaks, x[peaks], "x")
+plt.hlines(*results_half[1:], color="red")
+plt.hlines(*results_quarter[1:], color="green")
+plt.show()
+# %%
+print(results_half)
+# %%

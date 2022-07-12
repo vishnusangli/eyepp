@@ -1,0 +1,22 @@
+Record #:  3
+Notes :
+1.	Sirisha - 39 - F, Normal,
+Spontaneous blinks ~ 3 mins
+Electrode placement: 1
+Ch1, Ch2- vertical channel, Ch3-Hrzontal (L- positive, R - negative)
+LPF: order= 4, Cut-off:15 Hz
+Only one common reference for Ch-A and Ch-B
+
+
+6/20/20224:22:42 PM
+
+Scope Analysis
+	Mean (V)	Vrms	Vpp
+Channel 1	-14.67E-3	14.668039E-3	1.17E-3
+Channel 2	-16.97E-3	16.969678E-3	1.05E-3
+Channel 3	246.64E-6	263.161727E-6	950.91E-6
+Channel 4	178.83E-3	178.982391E-3	23.14E-3
+Channel 5	-187.50E-3	187.500022E-3	343.10E-6
+Channel 6	19.86E-3	19.867601E-3	2.23E-3
+Channel 7	50.48E-3	50.522436E-3	6.19E-3
+Channel 8	186.02E-3	186.025693E-3	2.66E-3
